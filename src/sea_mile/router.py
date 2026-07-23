@@ -12,7 +12,12 @@ from sea_mile._routing_backend import (
     SeaRouteBackend,
     _RoutingBackend,
 )
-from sea_mile.exceptions import PortCoordinateError, RoutingError, SeaMileError
+from sea_mile.exceptions import (
+    PortCoordinateError,
+    RoutingError,
+    RoutingErrorReason,
+    SeaMileError,
+)
 from sea_mile.ports import Port, PortRegistry
 from sea_mile.quality import great_circle_nmi, validate_coordinate
 from sea_mile.routing import RouteQualityFlag, assess_route_length
@@ -137,16 +142,19 @@ class SeaRouter:
             raise
         except Exception as error:
             raise RoutingError(
-                f"routing backend {self._backend.name!r} failed: {error}"
+                f"routing backend {self._backend.name!r} failed: {error}",
+                reason=RoutingErrorReason.BACKEND_CALL_FAILED,
             ) from error
         if not isinstance(result.geometry, dict):
             raise RoutingError(
-                f"routing backend {self._backend.name!r} returned an unusable geometry"
+                f"routing backend {self._backend.name!r} returned an unusable geometry",
+                reason=RoutingErrorReason.MALFORMED_BACKEND_RESULT,
             )
         assessment = assess_route_length(result.distance_nmi, great_circle)
         if not assessment.is_valid:
             raise RoutingError(
-                f"route failed the plausibility check: {assessment.flag}"
+                f"route failed the plausibility check: {assessment.flag}",
+                reason=RoutingErrorReason.IMPLAUSIBLE_ROUTE,
             )
         return SeaRoute(
             origin=origin,

@@ -10,7 +10,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Protocol
 
-from sea_mile.exceptions import RoutingError
+from sea_mile.exceptions import RoutingError, RoutingErrorReason
 
 
 @dataclass(frozen=True, slots=True)
@@ -84,14 +84,16 @@ class SeaRouteBackend:
             )
         except Exception as error:
             raise RoutingError(
-                f"the searoute backend failed to route: {error}"
+                f"the searoute backend failed to route: {error}",
+                reason=RoutingErrorReason.BACKEND_CALL_FAILED,
             ) from error
         try:
             distance = float(feature.properties["length"])
             geometry = feature.geometry
         except (AttributeError, KeyError, TypeError, ValueError) as error:
             raise RoutingError(
-                f"the searoute backend returned an unusable route: {error}"
+                f"the searoute backend returned an unusable route: {error}",
+                reason=RoutingErrorReason.MALFORMED_BACKEND_RESULT,
             ) from error
         return BackendRoute(distance_nmi=distance, geometry=geometry)
 

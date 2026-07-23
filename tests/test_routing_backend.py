@@ -6,7 +6,7 @@ import sys
 import pytest
 
 from sea_mile._routing_backend import BackendRoute, RoutingConfig, SeaRouteBackend
-from sea_mile.exceptions import RoutingError
+from sea_mile.exceptions import RoutingError, RoutingErrorReason
 from sea_mile.quality import great_circle_nmi
 from sea_mile.router import SeaRouter
 from sea_mile.routing import RouteQualityFlag
@@ -108,22 +108,43 @@ def test_same_fake_result_gives_deterministic_route_output():
 def test_backend_failure_becomes_a_routing_error():
     router = SeaRouter(_routing_backend=FakeBackend(error=RuntimeError("boom")))
 
-    with pytest.raises(RoutingError, match="failed"):
+    with pytest.raises(RoutingError, match="failed") as caught:
         router.route_coordinates(*ORIGIN, *DESTINATION)
+
+    assert caught.value.reason == RoutingErrorReason.BACKEND_CALL_FAILED
 
 
 def test_malformed_backend_geometry_is_rejected():
     router = SeaRouter(_routing_backend=FakeBackend(distance_nmi=600.0, geometry=None))
 
-    with pytest.raises(RoutingError, match="geometry"):
+    with pytest.raises(RoutingError, match="geometry") as caught:
         router.route_coordinates(*ORIGIN, *DESTINATION)
+
+    assert caught.value.reason == RoutingErrorReason.MALFORMED_BACKEND_RESULT
 
 
 def test_implausible_backend_distance_is_rejected():
     router = SeaRouter(_routing_backend=FakeBackend(distance_nmi=1.0))
 
-    with pytest.raises(RoutingError, match="plausibility"):
+    with pytest.raises(RoutingError, match="plausibility") as caught:
         router.route_coordinates(*ORIGIN, *DESTINATION)
+
+    assert caught.value.reason == RoutingErrorReason.IMPLAUSIBLE_ROUTE
+
+
+def test_routing_error_reasons_are_distinct_stable_strings():
+    reasons = [
+        RoutingErrorReason.BACKEND_CALL_FAILED,
+        RoutingErrorReason.MALFORMED_BACKEND_RESULT,
+        RoutingErrorReason.IMPLAUSIBLE_ROUTE,
+    ]
+
+    assert [str(reason) for reason in reasons] == [
+        "backend_call_failed",
+        "malformed_backend_result",
+        "implausible_route",
+    ]
+    assert len(set(reasons)) == 3
 
 
 def test_quality_assessment_stays_in_sea_mile_not_the_backend():

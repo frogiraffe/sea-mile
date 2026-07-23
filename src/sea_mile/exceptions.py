@@ -1,5 +1,7 @@
 """Public exceptions raised by registry and routing APIs."""
 
+from enum import StrEnum
+
 
 class SeaMileError(Exception):
     """Base exception for recoverable sea-mile errors."""
@@ -37,7 +39,19 @@ class PortCoordinateError(SeaMileError):
     code = "port_coordinate"
 
 
+class RoutingErrorReason(StrEnum):
+    """Stable reason tokens that tell the routing failure modes apart."""
+
+    BACKEND_CALL_FAILED = "backend_call_failed"
+    MALFORMED_BACKEND_RESULT = "malformed_backend_result"
+    IMPLAUSIBLE_ROUTE = "implausible_route"
+
+
 class RoutingError(SeaMileError):
     """The routing backend failed, or returned an unusable or implausible route."""
 
     code = "routing_error"
+
+    def __init__(self, message: str, *, reason: RoutingErrorReason) -> None:
+        super().__init__(message)
+        self.reason = reason

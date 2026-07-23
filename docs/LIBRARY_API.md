@@ -248,6 +248,8 @@ Every recoverable public error is a subclass of `SeaMileError`:
 - `AmbiguousPortError`, more than one independent port identity matches.
 - `PortCoordinateError`, a selected port has no usable routing coordinate.
 - `RoutingError`, the routing backend failed, returned an unusable result, or produced
-  a route that fails the plausibility check.
+  a route that fails the plausibility check. Its `reason` attribute carries a stable
+  token, one of `backend_call_failed`, `malformed_backend_result`, or `implausible_route`,
+  so automation can tell the failure modes apart without reading the message.
 
 The CLI prints each error to `stderr` and exits with status code 2.

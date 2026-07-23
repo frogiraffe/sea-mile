@@ -29,7 +29,10 @@ versioning.
   extension point, and the JSON output is unchanged.
 - A `RoutingError` exception, with error code `routing_error`. A routing backend that
   fails, returns an unusable result, or produces a route that fails the plausibility
-  check now raises this controlled error instead of leaking a third-party exception.
+  check now raises this controlled error instead of leaking a third-party exception. It
+  carries a stable `reason`, one of `backend_call_failed`, `malformed_backend_result`, or
+  `implausible_route`, exposed in the `--json` error `details`, so automation can tell the
+  failure modes apart without reading the message.
 
 ### Changed
 
