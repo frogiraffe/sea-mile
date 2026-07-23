@@ -11,7 +11,7 @@ import numpy as np
 import pandas as pd
 
 from sea_mile.exceptions import RegistryDataError
-from sea_mile.quality import _EARTH_RADIUS_NMI
+from sea_mile.geo import _EARTH_RADIUS_NMI
 from sea_mile.source_data import sha256
 
 NMI_IN_METERS = 1852.0

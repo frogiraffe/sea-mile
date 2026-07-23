@@ -9,7 +9,7 @@ from pathlib import Path
 import pandas as pd
 
 from sea_mile.exceptions import RegistryDataError
-from sea_mile.normalization import canonical_key, normalize_display_text
+from sea_mile.text import canonical_key, normalize_display_text
 
 _COUNTRY_KEYS = ("addr:country", "country", "ISO3166-1:alpha2", "is_in:country_code")
 _ALIAS_KEYS = ("name", "alt_name", "official_name", "int_name")

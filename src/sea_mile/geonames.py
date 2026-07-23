@@ -10,7 +10,7 @@ from zipfile import ZipFile
 import pandas as pd
 
 from sea_mile.exceptions import RegistryDataError
-from sea_mile.normalization import canonical_key, normalize_display_text
+from sea_mile.text import canonical_key, normalize_display_text
 
 
 def _parse_float(value: str) -> float | None:
