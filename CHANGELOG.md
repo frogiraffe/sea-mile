@@ -8,6 +8,10 @@ versioning.
 
 ### Added
 
+- A stability policy (`docs/STABILITY.md`) that states what is frozen at 1.0, the
+  supported Python versions and operating systems, and the deprecation schedule, and a
+  migration guide (`docs/MIGRATION.md`) that maps the removed top-level names and the
+  relocated modules to their new homes.
 - End to end scenario tests for the three usage paths sea-mile targets: an analyst bulk
   match that enriches every row and repeats, a developer embedding search and routing, and
   a researcher building a reproducible distance matrix. A new `docs/DATA_DICTIONARY.md`
@@ -55,6 +59,8 @@ versioning.
 - `sea-mile match` now reads its input in chunks and appends the `--output` and `--review`
   rows as it goes, so a large input no longer loads into memory all at once. The written
   output is unchanged.
+- CI now runs the suite on macOS and Windows alongside Linux, and pins every GitHub Action
+  to a commit SHA for a reproducible, tamper-evident workflow.
 - The top-level `sea_mile.__all__` now lists the core types only, so the advertised public
   surface is smaller. The names it dropped still import from `sea_mile` with a warning for
   one release. See Deprecated below and the Public API surface section in the library docs.

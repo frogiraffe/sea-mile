@@ -188,6 +188,8 @@ choose between two independent records when they disagree on location. It raises
 
 Read [Library API](docs/LIBRARY_API.md) and
 [Sources and limitations](docs/SOURCES_AND_LIMITATIONS.md) for the full data contract.
+See the [Stability policy](docs/STABILITY.md) for what is frozen at 1.0 and the
+[Migration guide](docs/MIGRATION.md) for moving off deprecated names.
 
 ## Data sources and licensing
 
