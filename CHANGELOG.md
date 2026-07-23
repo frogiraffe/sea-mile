@@ -8,6 +8,10 @@ versioning.
 
 ### Added
 
+- End to end scenario tests for the three usage paths sea-mile targets: an analyst bulk
+  match that enriches every row and repeats, a developer embedding search and routing, and
+  a researcher building a reproducible distance matrix. A new `docs/DATA_DICTIONARY.md`
+  documents every serialized field with its type, nullability, unit, and meaning.
 - A `registry_schema_version` and a deterministic `registry_content_hash` in the build
   manifest, plus a load-time check that refuses a processed registry whose schema this
   build of sea-mile cannot read. The content hash is order-independent, so two builds

@@ -97,7 +97,8 @@ exits 2.
 ```
 
 See [Output schemas](docs/OUTPUT_SCHEMAS.md) for the `data` shape of each command and
-the full list of error codes.
+the full list of error codes, and [Data dictionary](docs/DATA_DICTIONARY.md) for every
+serialized field with its type, nullability, and unit.
 
 ### Exit codes
 
