@@ -47,6 +47,7 @@ A recoverable error replaces `data` with `error`, and the process exits 2.
 | `port_not_found` | No port matches the identifier or exact name. |
 | `ambiguous_port` | More than one independent port identity matches. |
 | `port_coordinate` | A selected port has no usable routing coordinate. |
+| `routing_error` | The routing backend failed, returned an unusable result, or produced an implausible route. |
 | `registry_data_error` | The local registry files are missing or invalid. |
 | `source_data_error` | A public snapshot could not be downloaded or read. |
 | `usage_error` | A bad argument or a missing filter, such as a one-port `matrix`. |
@@ -83,7 +84,7 @@ The `quality_flag` is a `RouteQualityFlag` value. Only these appear on a returne
 | `coincident_endpoints` | The origin and destination are the same point. |
 
 The other `RouteQualityFlag` values describe a route that fails the plausibility check,
-which raises an error instead of returning.
+which raises a `routing_error` instead of returning.
 
 ## Command data shapes
 

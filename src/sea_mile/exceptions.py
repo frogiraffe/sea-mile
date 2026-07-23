@@ -35,3 +35,9 @@ class PortCoordinateError(SeaMileError):
     """A selected port has no usable routing coordinate."""
 
     code = "port_coordinate"
+
+
+class RoutingError(SeaMileError):
+    """The routing backend failed, or returned an unusable or implausible route."""
+
+    code = "routing_error"

@@ -8,6 +8,7 @@ from .exceptions import (
     PortCoordinateError,
     PortNotFoundError,
     RegistryDataError,
+    RoutingError,
     SeaMileError,
     SourceDataError,
 )
@@ -76,6 +77,7 @@ __all__ = [
     "PortSearchResult",
     "RegistryDataError",
     "RouteQualityFlag",
+    "RoutingError",
     "SeaMileError",
     "SeaRoute",
     "SeaRouter",

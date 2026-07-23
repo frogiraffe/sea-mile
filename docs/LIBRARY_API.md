@@ -196,7 +196,8 @@ The default settings use the searoute A* algorithm, the NetworkX backend, the
 
 - `distance_nmi` and `great_circle_nmi`.
 - `detour_ratio` and `quality_flag`.
-- the routing engine name, version, algorithm, backend, and restrictions.
+- the routing backend name and version, in `engine` and `engine_version`.
+- the effective routing config: `algorithm`, `backend`, and `restrictions`.
 - the origin and destination provider records.
 - a GeoJSON LineString geometry, on export.
 
@@ -205,9 +206,20 @@ The `quality_flag` is a `RouteQualityFlag` value. A returned route is either `ok
 `coincident_endpoints` when the origin and destination are the same point. The
 remaining values, `below_great_circle_lower_bound`, `nonzero_route_for_coincident_endpoints`,
 `invalid_route_distance`, and `invalid_great_circle_distance`, describe a route that
-fails the plausibility check, which raises `PortCoordinateError` rather than returning.
+fails the plausibility check, which raises `RoutingError` rather than returning.
 Branch automation on `RouteQualityFlag`, not on the string text. `SeaRouter` memoizes
 results per instance, keyed on the ports and the config.
+
+The `engine` and `engine_version` fields are the routing backend name and version. The
+default backend is searoute. The `algorithm`, `backend`, and `restrictions` fields are
+the effective routing configuration, so a route records the exact settings that produced
+it. Routing runs behind a small internal backend interface. That interface is not a
+public extension point, and it may change without notice.
+
+The searoute backend does not expose the graph nodes it uses when it snaps an endpoint
+to its routing network. sea-mile therefore does not report or estimate snapped
+coordinates. A route keeps the origin and destination you passed in, and never presents
+a snapped point as the real one.
 
 `route_ids` routes two registry IDs. `route_coordinates` routes two raw `lat, lon`
 points without a registry lookup. `route_many` routes a list of port pairs.
@@ -235,5 +247,7 @@ Every recoverable public error is a subclass of `SeaMileError`:
 - `PortNotFoundError`, no port matches the identifier or exact name.
 - `AmbiguousPortError`, more than one independent port identity matches.
 - `PortCoordinateError`, a selected port has no usable routing coordinate.
+- `RoutingError`, the routing backend failed, returned an unusable result, or produced
+  a route that fails the plausibility check.
 
 The CLI prints each error to `stderr` and exits with status code 2.
