@@ -17,6 +17,10 @@ versioning.
   local raw snapshots against it before building, for an offline reproducible build that
   fails loudly on drift.
 
+- A `RouteQualityFlag` enum. A `SeaRoute` now carries its `quality_flag` as this stable
+  enum instead of a bare string, so automation can branch on it. The value is a string
+  subclass, so the JSON output and string comparisons are unchanged.
+
 ### Changed
 
 - The registry build now writes its Parquet files and manifest through temporary files

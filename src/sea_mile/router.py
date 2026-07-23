@@ -10,7 +10,7 @@ from typing import Any
 from sea_mile.exceptions import PortCoordinateError
 from sea_mile.ports import Port, PortRegistry
 from sea_mile.quality import great_circle_nmi, validate_coordinate
-from sea_mile.routing import assess_route_length
+from sea_mile.routing import RouteQualityFlag, assess_route_length
 
 
 def _coordinate_port(label: str, latitude: float, longitude: float) -> Port:
@@ -38,7 +38,7 @@ class SeaRoute:
     distance_nmi: float
     great_circle_nmi: float
     detour_ratio: float | None
-    quality_flag: str
+    quality_flag: RouteQualityFlag
     geometry: dict[str, Any]
     engine: str
     engine_version: str
@@ -53,7 +53,7 @@ class SeaRoute:
             "distance_nmi": self.distance_nmi,
             "great_circle_nmi": self.great_circle_nmi,
             "detour_ratio": self.detour_ratio,
-            "quality_flag": self.quality_flag,
+            "quality_flag": str(self.quality_flag),
             "engine": self.engine,
             "engine_version": self.engine_version,
             "algorithm": self.algorithm,

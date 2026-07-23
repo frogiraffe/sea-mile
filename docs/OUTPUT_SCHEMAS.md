@@ -74,11 +74,16 @@ review workflow applies a decisions file.
 
 ### `route` quality flag
 
+The `quality_flag` is a `RouteQualityFlag` value. Only these appear on a returned route.
+
 | Value | Meaning |
 | --- | --- |
 | `ok` | The route passed the basic plausibility checks. |
 | `high_detour_ratio` | The route is far longer than the great-circle lower bound. |
 | `coincident_endpoints` | The origin and destination are the same point. |
+
+The other `RouteQualityFlag` values describe a route that fails the plausibility check,
+which raises an error instead of returning.
 
 ## Command data shapes
 

@@ -32,6 +32,7 @@ from .ports import (
 from .quality import CoordinateCheck, great_circle_nmi, validate_coordinate
 from .reference import parse_unlocode_coordinates, parse_wpi_dms
 from .registry_build import build_reference_registry
+from .routing import RouteQualityFlag
 
 if TYPE_CHECKING:
     from .router import SeaRoute, SeaRouter
@@ -74,6 +75,7 @@ __all__ = [
     "PortRegistry",
     "PortSearchResult",
     "RegistryDataError",
+    "RouteQualityFlag",
     "SeaMileError",
     "SeaRoute",
     "SeaRouter",

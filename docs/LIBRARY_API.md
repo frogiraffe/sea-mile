@@ -200,10 +200,14 @@ The default settings use the searoute A* algorithm, the NetworkX backend, the
 - the origin and destination provider records.
 - a GeoJSON LineString geometry, on export.
 
-A route shorter than the great-circle lower bound, beyond a small tolerance, is
-rejected. A route with a large detour ratio is still returned with a
-`high_detour_ratio` quality flag for a manual check. `SeaRouter` memoizes results per
-instance, keyed on the ports and the config.
+The `quality_flag` is a `RouteQualityFlag` value. A returned route is either `ok` or
+`high_detour_ratio` for a route far longer than the great-circle lower bound, or
+`coincident_endpoints` when the origin and destination are the same point. The
+remaining values, `below_great_circle_lower_bound`, `nonzero_route_for_coincident_endpoints`,
+`invalid_route_distance`, and `invalid_great_circle_distance`, describe a route that
+fails the plausibility check, which raises `PortCoordinateError` rather than returning.
+Branch automation on `RouteQualityFlag`, not on the string text. `SeaRouter` memoizes
+results per instance, keyed on the ports and the config.
 
 `route_ids` routes two registry IDs. `route_coordinates` routes two raw `lat, lon`
 points without a registry lookup. `route_many` routes a list of port pairs.
