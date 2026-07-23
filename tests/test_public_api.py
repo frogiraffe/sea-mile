@@ -90,6 +90,9 @@ def test_unknown_attribute_still_raises() -> None:
 _MOVED_MODULES = {
     "sea_mile.normalization": "sea_mile.text",
     "sea_mile.quality": "sea_mile.geo",
+    "sea_mile.reference": "sea_mile.sources",
+    "sea_mile.geonames": "sea_mile.sources",
+    "sea_mile.osm": "sea_mile.sources",
 }
 
 

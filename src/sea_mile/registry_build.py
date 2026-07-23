@@ -11,9 +11,12 @@ import pandas as pd
 
 from sea_mile.canonical import assign_canonical_ids
 from sea_mile.exceptions import RegistryDataError
-from sea_mile.geonames import load_geonames_port_archive
-from sea_mile.osm import load_osm_port_archive
-from sea_mile.reference import parse_unlocode_coordinates, parse_wpi_dms
+from sea_mile.sources import (
+    load_geonames_port_archive,
+    load_osm_port_archive,
+    parse_unlocode_coordinates,
+    parse_wpi_dms,
+)
 from sea_mile.text import canonical_key, normalize_display_text
 
 # The on-disk format of the processed registry. A reader refuses a version it does

@@ -46,8 +46,8 @@ _DEPRECATED_EXPORTS = {
     "download_reference_data": "sea_mile.source_data",
     "great_circle_nmi": "sea_mile.geo",
     "normalize_display_text": "sea_mile.text",
-    "parse_unlocode_coordinates": "sea_mile.reference",
-    "parse_wpi_dms": "sea_mile.reference",
+    "parse_unlocode_coordinates": "sea_mile.sources",
+    "parse_wpi_dms": "sea_mile.sources",
     "validate_coordinate": "sea_mile.geo",
 }
 
