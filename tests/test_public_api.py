@@ -93,6 +93,8 @@ _MOVED_MODULES = {
     "sea_mile.reference": "sea_mile.sources",
     "sea_mile.geonames": "sea_mile.sources",
     "sea_mile.osm": "sea_mile.sources",
+    "sea_mile.registry_build": "sea_mile.build",
+    "sea_mile.source_data": "sea_mile.build",
 }
 
 
