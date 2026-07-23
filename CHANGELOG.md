@@ -6,6 +6,16 @@ versioning.
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-07-24
+
+The first stable release. It gathers the reproducible-build, routing-boundary,
+performance, and API-reduction work done since 0.3, validates the three usage scenarios
+end to end, and commits to a frozen public API, CLI, JSON envelope, error codes, and
+registry schema. See the [stability policy](docs/STABILITY.md) for what is guaranteed and
+the [migration guide](docs/MIGRATION.md) for moving off the names deprecated along the
+way. Positioning shifts from port search and distances to reproducible, source-aware port
+identity resolution with approximate analytical distances.
+
 ### Added
 
 - A stability policy (`docs/STABILITY.md`) that states what is frozen at 1.0, the

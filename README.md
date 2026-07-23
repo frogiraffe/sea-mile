@@ -1,9 +1,9 @@
 # sea-mile
 
-sea-mile is a Python library and command-line tool for port search and approximate
-sea-route distance. It builds a local port registry from public sources and finds
-ports by name, by code, or by coordinate. It calculates an approximate sea route
-between two ports in nautical miles.
+sea-mile is a Python library and command-line tool for reproducible, source-aware port
+identity resolution with approximate analytical sea-route distances. It builds a local
+port registry from public sources, resolves a name or a code to one physical port across
+providers, and calculates an approximate sea route between two ports in nautical miles.
 
 Routing uses the searoute package. A sea-mile route is for analysis and map display.
 Do not use it for navigation, voyage planning, or a safety decision.
@@ -21,6 +21,18 @@ Do not use it for navigation, voyage planning, or a safety decision.
 - Export matching records as CSV or GeoJSON.
 - Read machine-readable JSON from the search, inspection, routing, matching, and data
   commands with `--json`.
+
+## Non-goals
+
+sea-mile is deliberately narrow, and staying narrow is what keeps its results
+trustworthy. It does not do, and will not add:
+
+- navigation, voyage planning, or any safety decision
+- AIS, live vessel positions, weather, tides, or draft
+- live port closures or passage restrictions as real-time data
+- machine-learned matching, a hosted API, or a web UI
+
+A sea-mile route is an approximate graph distance for analysis and map display.
 
 ## Install
 
