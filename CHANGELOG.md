@@ -16,6 +16,10 @@ versioning.
   and SHA-256 into `sea-mile.lock.json`, and `sea-mile data build --lock` verifies the
   local raw snapshots against it before building, for an offline reproducible build that
   fails loudly on drift.
+- A performance benchmark with published budgets. `scripts/benchmark.py` now reports
+  peak process memory and takes a `--no-kdtree` flag that measures `nearest` on the scan
+  path, and the new `docs/PERFORMANCE.md` records build time, memory, and search and
+  nearest latency on a reference machine.
 
 - A `RouteQualityFlag` enum. A `SeaRoute` now carries its `quality_flag` as this stable
   enum instead of a bare string, so automation can branch on it. The value is a string
